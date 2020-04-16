@@ -9,12 +9,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
-    <artifactId>microservices-api</artifactId>
 
+    <artifactId>microservices-api</artifactId>
     <modules>
-    <module>spring-reactive-mongoapi</module>
-        
-</modules>
+         <module>spring-reactive-mongoapi</module>
+    </modules>
 
     <dependencies>
 
