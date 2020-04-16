@@ -1,0 +1,39 @@
+FROM docker.io/java:8-jre-alpine
+
+# Fix font error on alpine https://bugs.alpinelinux.org/issues/7372
+USER root
+RUN apk add --no-cache ttf-dejavu fontconfig && rm -rf /var/cache/apk/*
+# SET TIMEZONE
+RUN apk update
+# Change TimeZone
+RUN apk add --no-cache tzdata
+USER $USER_ID
+ENV TZ Europe/Paris
+USER $USER_ID
+RUN pwd
+RUN ls -la
+ADD target/integ-scanandp-api-0.0.1-SNAPSHOT.jar app.jar
+ENV JAVA_OPTS=""
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app.jar" ]
+
+
+
+# For Java 8, try this
+# FROM openjdk:8-jdk-alpine
+
+# For Java 11, try this
+FROM adoptopenjdk/openjdk11:alpine-jre
+
+# Refer to Maven build -> finalName
+ARG JAR_FILE=target/spring-reative-mongoapi-0.0.1-SNAPSHOT.jar
+
+RUN ls -la /var/lib/
+
+# cd /opt/app
+WORKDIR /opt/app
+
+# cp target/spring-boot-web.jar /opt/app/app.jar
+COPY ${JAR_FILE} app.jar
+
+# java -jar /opt/app/app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
