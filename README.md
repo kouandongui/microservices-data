@@ -1,5 +1,5 @@
-# API REACTIVE SPRING DATA MONGO 
-Running 
+# SPRING REACTIVE API ( spring 5 ) 
+Running spring-reactive-mongoapi
 ```
 cd microservices-data
 
@@ -9,6 +9,6 @@ To run spring-reactive-mpongoapi
 
 cd microservices-api/spring-reactive-mongoapi/
 
-start ApplicationShop.java ( from com.inti.formation.shop.api )
+Run ApplicationShop.java ( from com.inti.formation.shop.api )
 ```
 
