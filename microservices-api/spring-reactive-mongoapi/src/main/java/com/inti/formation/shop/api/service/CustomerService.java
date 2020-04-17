@@ -1,4 +1,4 @@
-package com.auchan.tdc.scanandp.api.service;
+package com.inti.formation.shop.api.service;
 
 import com.inti.formation.shop.api.repository.model.Customer;
 import reactor.core.publisher.Flux;

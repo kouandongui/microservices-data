@@ -5,12 +5,12 @@ package com.inti.formation.shop.api;
 import com.inti.formation.shop.api.repository.model.Customer;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
+import com.inti.formation.shop.api.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 
@@ -30,7 +30,7 @@ import static org.springframework.http.ResponseEntity.status;
 @Slf4j
 public class Endpoint {
     @Autowired
-    com.auchan.tdc.scanandp.api.service.CustomerService customerService;
+    CustomerService customerService;
 
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
@@ -55,7 +55,6 @@ public class Endpoint {
                 {
                      return customerService.register( data).subscribe().toString();
                 });
-
     }
 
 

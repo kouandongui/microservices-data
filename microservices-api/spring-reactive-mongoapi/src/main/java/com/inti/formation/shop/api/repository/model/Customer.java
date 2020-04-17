@@ -30,7 +30,7 @@ public class Customer implements Serializable {
      */
     @Id
     private String email;
-    @Indexed(unique = false, name = "index_name")
+    @Indexed(unique = false)
     private String name;
     private String firstname;
     private String adresse;
