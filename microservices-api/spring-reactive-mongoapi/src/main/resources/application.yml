@@ -5,7 +5,16 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb://localhost:27017,localhost:27017
-      database: testdb
-      repositories:
-        enabled: true
+      uri: mongodb://192.168.99.101:27017,192.168.99.101:27017 # localhost pblm liée à dockers 192.168.99.101 IP link with quickStart docker
+      database: shop
+#      repositories:
+#        enabled: true
+
+
+#failover: mode qui permet de lister les server qui peuvent sse connecter à l'api mongodb
+# server amberquer par la version de spring boot uitlisé au sein de se projet
+#  C:\Users\guill\Documents\FormationJavaData\BIG_DATA_PROJET\microservices-data\microservices-api
+#est un serveur Netty non tomcat
+
+#server:
+#  prot: 8082, 0: indique à spring qu'il peut séléctioner aléatoirement les port à utiliser

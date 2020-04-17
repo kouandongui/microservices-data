@@ -1,0 +1,37 @@
+- supprimer la collection customer de la base shop
+
+```
+use shop
+db.cutsomer.drop()
+```
+
+- Basculer l'application microservice-mongo api sur la base shop
+
+```
+spring:
+  port: 0
+  application:
+    name: spring-rective-mongoapi
+
+  data:
+    mongodb:
+      uri: mongodb://192.168.99.101:27017,192.168.99.101:27017 # localhost pblm liée à dockers 192.168.99.101 IP link with quickStart docker
+   -> database: shop <-
+```
+
+- creer le model mongo de stockinit et produit
+
+```
+com.inti.formation.shop.api.repository.model.Product
+com.inti.formation.shop.api.repository.model.stockinit
+``` 
+
+- creer les repositories product et stockinit 
+
+- creer un service produit pour l'enregistrement de produit et un autre pour la liste des produits
+
+- crer un service stok pour l'enregistrement de stockinit et un autre pour la liste des stoks
+
+ - créer dans Endpoint ( le controller) des roots pour enregister un produit, lister les produits
+ 
+ - créer dans Endpoint ( le controller) des roots pour enregister un stockinit, lister les stoksinit
