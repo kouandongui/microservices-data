@@ -1,9 +1,9 @@
 spring:
   port: 0
   application:
-    name: spring-rective-mongoapi
+    name: spring-reactive-mongoapi-shop
 
   data:
     mongodb:
       uri: mongodb://localhost:27017,localhost:27017
-      database: bdtest
+      database: shop
