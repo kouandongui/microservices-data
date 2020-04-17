@@ -1,7 +1,6 @@
 package com.inti.formation.shop.api.repository.model;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.Data;import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -23,7 +22,6 @@ import java.util.Date;
         // unique = false acceptation des doublons true non
         // unique = true rejet  des doublons
 })
-
 public class Customer implements Serializable {
     /**
      * customer identifer
