@@ -3,8 +3,11 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Product;
+import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
+import com.inti.formation.shop.api.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -30,14 +33,17 @@ import static org.springframework.http.ResponseEntity.status;
 @Slf4j
 public class Endpoint {
     @Autowired
-    com.auchan.tdc.scanandp.api.service.CustomerService customerService;
+    CustomerService customerService;
 
     @Autowired
+    IProductService productService;
 
+    @Autowired
+    IStockinitService stockinitService;
 
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
-        return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
+        return Mono.just(badRequest().body("Missing parameter: " + e.getMessage()));
     }
 
     @ExceptionHandler(InternalServerException.class)
@@ -45,18 +51,18 @@ public class Endpoint {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
 
-    @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" )
+    @PostMapping(value = "/register", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
     public Mono<String> create(@RequestBody Customer customer) {
 
-        if( ObjectUtils.anyNotNull(customer)  && !ObjectUtils.allNotNull(customer.getEmail(),customer.getName(), customer.getFirstname() )){
+        if (ObjectUtils.anyNotNull(customer) && !ObjectUtils.allNotNull(customer.getEmail(), customer.getName(), customer.getFirstname())) {
             log.error("Validation error: one of parameter is not found");
-            return Mono.error(new ValidationParameterException("Validation error" ));
+            return Mono.error(new ValidationParameterException("Validation error"));
         }
         return Mono.just(customer)
-                .map(data->
+                .map(data ->
                 {
-                     return customerService.register( data).subscribe().toString();
+                    return customerService.saveCustomer(data).subscribe().toString();
                 });
 
     }
@@ -64,11 +70,11 @@ public class Endpoint {
 
     @GetMapping
     @RequestMapping(value = "/customers{customername}")
-    public Flux<Customer> getCustomes(@RequestParam(required = true, name = "customername") String customername ) {
-        log.info("Searching  {} ",customername );
-        return customerService.searchName(customername)
+    public Flux<Customer> getCustomes(@RequestParam(required = true, name = "customername") String customername) {
+        log.info("Searching  {} ", customername);
+        return customerService.searchCustomerName(customername)
                 // uses of doNext
-                .doOnNext(p -> log.info(p.getEmail()+ " is found"));
+                .doOnNext(p -> log.info(p.getEmail() + " is found"));
 
     }
 
@@ -77,10 +83,59 @@ public class Endpoint {
     @RequestMapping(value = "/customers/")
     public Flux<Customer> getCustomes() {
         log.info("All customers searching");
-      return customerService.getCustomers()
-              // uses of map
+        return customerService.findAllCustomers()
+                // uses of map
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .map( customer-> customer);
+                .map(customer -> customer);
     }
+
+    @GetMapping
+    @RequestMapping(value = "/products")
+    public Flux<Product> getProducts() {
+        return productService.findAllProduct()
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map(product -> product);
+    }
+
+    @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
+    public Mono<String> createProduct(@RequestBody Product product) {
+
+        if (ObjectUtils.anyNotNull(product) && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(), product.getOrigine())) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error"));
+        }
+        return Mono.just(product)
+                .map(data ->
+                {
+                    return productService.saveProduct(data).subscribe().toString();
+                });
+
+    }
+
+    @GetMapping
+    @RequestMapping(value = "/stocks")
+    public Flux<Stockinit> getStocks() {
+        return stockinitService.findAllStock()
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map(stock -> stock);
+    }
+
+    @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
+    public Mono<String> createProduct(@RequestBody Stockinit stock) {
+
+        if (ObjectUtils.anyNotNull(stock) && !ObjectUtils.allNotNull(stock.getActive(), stock.getIdproduct(), stock.getMagasin(), stock.getQuantite())) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error"));
+        }
+        return Mono.just(stock)
+                .map(data ->
+                {
+                    return stockinitService.saveStock(data).subscribe().toString();
+                });
+
+    }
+
 }
 

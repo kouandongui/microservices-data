@@ -168,16 +168,14 @@ public class stockinit {
 
 package com.inti.formation.shop.api.repository;
 
-import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Product;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IProductRepository extends ReactiveMongoRepository<Customer, String> {
+public interface IProductRepository extends ReactiveMongoRepository<Product, String> {
 
 }
-
-
 
 ````
 
@@ -189,17 +187,32 @@ public interface IProductRepository extends ReactiveMongoRepository<Customer, St
 
 package com.inti.formation.shop.api.repository;
 
-import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Stockinit;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface IStockinitRepository extends ReactiveMongoRepository<Customer, String> {
+public interface IStockinitRepository extends ReactiveMongoRepository<Stockinit, String> {
 }
+
 
 ````
 
 - creer un service produit pour l'enregistrement de produit et un autre pour la liste des produits
 
 ```java
+
+package com.inti.formation.shop.api.service;
+
+import com.inti.formation.shop.api.repository.model.Product;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+public interface IProductService {
+
+    public Mono<Product> saveProduct(Product product);
+    public Flux<Product> findAllProduct();
+
+}
+
 
 
 ```
@@ -209,19 +222,96 @@ public interface IStockinitRepository extends ReactiveMongoRepository<Customer, 
 
 ```java
 
+package com.inti.formation.shop.api.service;
+
+import com.inti.formation.shop.api.repository.model.Stockinit;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+public interface IStockinitService {
+
+    public Mono<Stockinit> saveStock(final Stockinit stock);
+    public Flux<Stockinit> findAllStock();
+
+}
+
+
 
 ```
 
  - créer dans Endpoint ( le controller) des roots pour enregister un produit, lister les produits
  
+    >com.inti.formation.shop.api.Endpoint
+                                                                                                       >
  ```java
  
+public class Endpoint {
+    
+    @Autowired
+    IProductService productService;
+
+    @GetMapping
+    @RequestMapping(value = "/products")
+    public Flux<Product> getProducts() {
+        return productService.findAllProduct()
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map(product -> product);
+    }
+
+    @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
+    public Mono<String> createProduct(@RequestBody Product product) {
+
+        if (ObjectUtils.anyNotNull(product) && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(), product.getOrigine())) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error"));
+        }
+        return Mono.just(product)
+                .map(data ->
+                {
+                    return productService.saveProduct(data).subscribe().toString();
+                });
+
+    }
+
+}
  
  ```
  
  - créer dans Endpoint ( le controller) des roots pour enregister un stockinit, lister les stoksinit
  
+    >com.inti.formation.shop.api.Endpoint
+
  ```java
- 
+
+public class Endpoint {
+
+    @Autowired
+    IStockinitService stockinitService;
+
+    @GetMapping
+    @RequestMapping(value = "/stocks")
+    public Flux<Stockinit> getStocks() {
+        return stockinitService.findAllStock()
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map(stock -> stock);
+    }
+
+    @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
+    public Mono<String> createProduct(@RequestBody Stockinit stock) {
+
+        if (ObjectUtils.anyNotNull(stock) && !ObjectUtils.allNotNull(stock.getActive(), stock.getIdproduct(), stock.getMagasin(), stock.getQuantite())) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error"));
+        }
+        return Mono.just(stock)
+                .map(data ->
+                {
+                    return stockinitService.saveStock(data).subscribe().toString();
+                });
+
+    } 
+}
  
  ```

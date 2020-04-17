@@ -15,24 +15,24 @@ import static java.util.stream.Collectors.joining;
 
 @Component
 @Slf4j
-public class CustomerServiceImpl implements com.auchan.tdc.scanandp.api.service.CustomerService {
+public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
     @Override
-    public Mono<Customer>  register(final Customer customer) {
+    public Mono<Customer>  saveCustomer(final Customer customer) {
         return customerRepository.save(customer);
 
     }
-    public Flux<Customer> searchName(final String name) {
+    public Flux<Customer> searchCustomerName(final String name) {
         return customerRepository.findByName(name);
     }
 
-    public Flux<Customer> getCustomers() {
+    public Flux<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
 
-    public Mono<Customer> update(final Customer e) {
+    public Mono<Customer> updateCustomer(final Customer e) {
         return customerRepository.save(e);
     }
 
