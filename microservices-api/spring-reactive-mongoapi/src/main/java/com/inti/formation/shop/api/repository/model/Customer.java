@@ -36,5 +36,5 @@ public class Customer implements Serializable {
     private String adresse;
     private Date dateNaissance;
     @Transient
-    private int age;
+    private int age; //transient pour dire que l'age change chaque annee
 }
