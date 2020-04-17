@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.joining;
 
 @Component
 @Slf4j
-public class CustomerServiceImpl implements com.auchan.tdc.scanandp.api.service.CustomerService {
+public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
 
