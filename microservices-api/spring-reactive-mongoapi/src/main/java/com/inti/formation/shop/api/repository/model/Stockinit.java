@@ -47,7 +47,7 @@ import java.util.Date;
         @CompoundIndex(name = "product", def = "{ idproduct: 1}", unique = false)
 })
 
-public class stockinit {
+public class Stockinit {
 
     @Id
     private String magasin;

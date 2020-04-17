@@ -87,7 +87,7 @@ public class Product {
 ```  
 - creer le model mongo de tockinit
 
-    >com.inti.formation.shop.api.repository.model.stockinit
+    >com.inti.formation.shop.api.repository.model.Stockinit
 
 ```java
 
@@ -160,12 +160,68 @@ public class stockinit {
 
 ``` 
 
-- creer les repositories product et stockinit 
+- creer le repositorie product
+
+    > com.inti.formation.shop.api.repository.IProductRepository
+
+````java
+
+package com.inti.formation.shop.api.repository;
+
+import com.inti.formation.shop.api.repository.model.Customer;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface IProductRepository extends ReactiveMongoRepository<Customer, String> {
+
+}
+
+
+
+````
+
+- creer le repositorie stockinit 
+
+    > com.inti.formation.shop.api.repository.IStockinitRepository
+
+````java
+
+package com.inti.formation.shop.api.repository;
+
+import com.inti.formation.shop.api.repository.model.Customer;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
+
+public interface IStockinitRepository extends ReactiveMongoRepository<Customer, String> {
+}
+
+````
 
 - creer un service produit pour l'enregistrement de produit et un autre pour la liste des produits
 
-- crer un service stok pour l'enregistrement de stockinit et un autre pour la liste des stoks
+```java
+
+
+```
+
+
+- crer un service stock pour l'enregistrement de stockinit et un autre pour la liste des stoks
+
+```java
+
+
+```
 
  - créer dans Endpoint ( le controller) des roots pour enregister un produit, lister les produits
  
+ ```java
+ 
+ 
+ ```
+ 
  - créer dans Endpoint ( le controller) des roots pour enregister un stockinit, lister les stoksinit
+ 
+ ```java
+ 
+ 
+ ```

@@ -32,6 +32,9 @@ public class Endpoint {
     @Autowired
     com.auchan.tdc.scanandp.api.service.CustomerService customerService;
 
+    @Autowired
+
+
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
         return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
