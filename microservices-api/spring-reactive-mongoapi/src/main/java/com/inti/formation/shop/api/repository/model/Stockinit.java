@@ -27,7 +27,7 @@ public class Stockinit implements Serializable {
     @Indexed(unique = false)
     private String magasin;
     private long quantite;
-    private int idproduct;
+    private long idproduct;
     private boolean active;
 
     @Transient
