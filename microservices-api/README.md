@@ -259,20 +259,20 @@ public class Endpoint {
     }
 
     @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Product is registered")
     public Mono<String> createProduct(@RequestBody Product product) {
-
-        if (ObjectUtils.anyNotNull(product) && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(), product.getOrigine())) {
-            log.error("Validation error: one of parameter is not found");
-            return Mono.error(new ValidationParameterException("Validation error"));
+    
+          if (ObjectUtils.anyNotNull(product) && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(), product.getOrigine())) {
+              log.error("Validation error: one of parameter is not found");
+              return Mono.error(new ValidationParameterException("Validation error"));
+          }
+          return Mono.just(product)
+                  .map(data ->
+                  {
+                      return productService.saveProduct(data).subscribe().toString();
+                  });
+    
         }
-        return Mono.just(product)
-                .map(data ->
-                {
-                    return productService.saveProduct(data).subscribe().toString();
-                });
-
-    }
 
 }
  
@@ -297,21 +297,21 @@ public class Endpoint {
                 .map(stock -> stock);
     }
 
-    @PostMapping(value = "/saveProduct", headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
-    public Mono<String> createProduct(@RequestBody Stockinit stock) {
-
-        if (ObjectUtils.anyNotNull(stock) && !ObjectUtils.allNotNull(stock.getActive(), stock.getIdproduct(), stock.getMagasin(), stock.getQuantite())) {
-            log.error("Validation error: one of parameter is not found");
-            return Mono.error(new ValidationParameterException("Validation error"));
-        }
-        return Mono.just(stock)
-                .map(data ->
-                {
-                    return stockinitService.saveStock(data).subscribe().toString();
-                });
-
-    } 
+    @PostMapping(value = "/saveStock", headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "Product is registered")
+    public Mono<String> createStock(@RequestBody Stockinit stock) {
+    
+            if (ObjectUtils.anyNotNull(stock) && !ObjectUtils.allNotNull(stock.getActive(), stock.getIdproduct(), stock.getMagasin(), stock.getQuantite())) {
+                log.error("Validation error: one of parameter is not found");
+                return Mono.error(new ValidationParameterException("Validation error"));
+            }
+            return Mono.just(stock)
+                    .map(data ->
+                    {
+                        return stockinitService.saveStock(data).subscribe().toString();
+                    });
+    
+    }
 }
  
  ```

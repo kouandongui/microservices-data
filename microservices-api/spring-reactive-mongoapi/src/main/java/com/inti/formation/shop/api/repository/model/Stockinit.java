@@ -58,9 +58,9 @@ public class Stockinit {
     @Transient
     private Date date; // = new DateOperators.IsoDateFromParts();
 
-    public Date getDate() throws ParseException {
-        SimpleDateFormat df = new SimpleDateFormat("yyy-MM-ddTHH:mm:ssZ");
-        return df.parse(df.format(new Date()));
-    }
+//    public Date getDate() throws ParseException {
+//        SimpleDateFormat df = new SimpleDateFormat("yyy-MM-ddTHH:mm:ssZ");
+//        return df.parse(df.format(new Date()));
+//    }
 
 }
