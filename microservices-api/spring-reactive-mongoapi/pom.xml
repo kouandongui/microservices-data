@@ -13,7 +13,6 @@
 
     <dependencies>
 
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
@@ -89,58 +88,4 @@
 
 </project>
 
-
-
-    <!--
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <imageName>${docker.registry.url}/${docker.registry.path}/${project.artifactId}</imageName>
-                    <dockerDirectory>${project.build.directory}/docker</dockerDirectory>
-                    <serverId>${docker.registry.url}</serverId>
-                    <registryUrl>${docker.registry.url}</registryUrl>
-                    <skipDocker>false</skipDocker>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>*.jar</include>
-                        </resource>
-                    </resources>
-                    <imageTags>
-                        <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>timestamp-property</id>
-                        <goals>
-                            <goal>timestamp-property</goal>
-                        </goals>
-                        <configuration>
-                            <name>timestamp</name>
-                            <pattern>yyyyMMdd.HHmmss</pattern>
-                            <timeZone>CET</timeZone>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    -->
 
