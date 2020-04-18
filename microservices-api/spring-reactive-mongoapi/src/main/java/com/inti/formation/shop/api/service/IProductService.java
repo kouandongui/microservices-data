@@ -6,7 +6,7 @@ import com.inti.formation.shop.api.repository.model.Product;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ProductService {
+public interface IProductService {
 	
 	 Mono<Product> register(Product product);
 

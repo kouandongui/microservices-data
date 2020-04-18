@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j    //Causes lombok to generate a logger field.
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements IProductService{
 
 	
 	@Autowired
