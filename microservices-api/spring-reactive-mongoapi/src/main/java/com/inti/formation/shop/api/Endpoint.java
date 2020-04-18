@@ -2,10 +2,17 @@ package com.inti.formation.shop.api;
 
 
 
+import com.inti.formation.shop.api.repository.IProductRepository;
+import com.inti.formation.shop.api.repository.IStockInitRepository;
 import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Product;
+import com.inti.formation.shop.api.repository.model.StockInit;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
+import com.inti.formation.shop.api.service.IProductService;
+import com.inti.formation.shop.api.service.IStockService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -32,6 +39,14 @@ public class Endpoint {
     @Autowired
     CustomerService customerService;
 
+
+	@Autowired
+	IProductService productservice;
+	
+	@Autowired
+	IStockService stockinitservice;
+    
+    
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
         return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
@@ -42,6 +57,8 @@ public class Endpoint {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
 
+    //Requete POST --------------------------------------
+    
     @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" )
     public Mono<String> create(@RequestBody Customer customer) {
@@ -57,6 +74,44 @@ public class Endpoint {
                 });
     }
 
+    
+    @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is registered" )
+    public Mono<String> create(@RequestBody Product product) {
+		
+    	 if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getId(),product.getLibelle(),product.getOrigine(), product.getCouleur() )){
+             log.error("Validation error: one of parameter is not found");
+             return Mono.error(new ValidationParameterException("Validation error" ));
+         }
+    	 return Mono.just(product)
+                 .map(data-> {return productservice.register( data).subscribe().toString();
+                 });
+    }
+    
+    
+    
+    @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stock is registered" )
+    public Mono<String> create(@RequestBody StockInit stockInit) {
+		
+    	 if( ObjectUtils.anyNotNull(stockInit)  && !ObjectUtils.allNotNull(stockInit.getId(), stockInit.getMagasin(), stockInit.getQuantite(), stockInit.getIdproduct(), stockInit.getDate() )){
+             log.error("Validation error: one of parameter is not found");
+             return Mono.error(new ValidationParameterException("Validation error" ));
+         }
+    	 return Mono.just(stockInit)
+                 .map(data-> {return stockinitservice.register( data).subscribe().toString();
+                 });
+    }
+    
+    
+    
+    
+    
+    // Requete GET --------------------------------------
+    
+    
+    
+    
 
     @GetMapping
     @RequestMapping(value = "/customers{customername}")

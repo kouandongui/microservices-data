@@ -24,7 +24,7 @@ public class StockInit implements Serializable{
 	private long id;
 	@Indexed(unique = false)
 	private String magasin;
-	private Integer quantité;
+	private Integer quantite;
 	private boolean active;
 	private long idproduct;
 	private Date date;
