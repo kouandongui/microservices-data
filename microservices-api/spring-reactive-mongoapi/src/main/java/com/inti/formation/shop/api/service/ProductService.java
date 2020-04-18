@@ -6,11 +6,11 @@ import com.inti.formation.shop.api.repository.model.Product;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ProduitService {
+public interface ProductService {
 	
 	 Mono<Product> register(Product product);
 
-	    public Flux<Product> searchId(long id) ;
+	    public Flux<Product> searchlibelle(String libelle) ;
 
 	    public Flux<Product> getProduct() ;
 
