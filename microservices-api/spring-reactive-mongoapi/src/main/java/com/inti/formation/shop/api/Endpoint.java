@@ -3,9 +3,14 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Product;
+import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
+import com.inti.formation.shop.api.service.ProductService;
+import com.inti.formation.shop.api.service.StockinitService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -78,5 +83,113 @@ public class Endpoint {
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                 .map( customer-> customer);
     }
+    
+    
+    
+    @Autowired
+    ProductService productService;
+
+    @ExceptionHandler(ValidationParameterException.class)
+    public Mono<ResponseEntity<String>> handlerValidationParameterException1(ValidationParameterException e) {
+        return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
+    }
+
+    @ExceptionHandler(InternalServerException.class)
+    public Mono<ResponseEntity<String>> handlerInternalServerException1() {
+        return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
+    }
+
+    @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is registered" )
+    public Mono<String> create(@RequestBody Product product) {
+
+        if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getId(),product.getLibelle(), product.getOrigine(), product.getDescription(), product.getCouleur() )){
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error" ));
+        }
+        return Mono.just(product)
+                .map(data->
+                {
+                     return productService.category( data).subscribe().toString();
+                });
+    }
+
+
+    @GetMapping
+    @RequestMapping(value = "/products{productlibelle}")
+    public Flux<Product> getProducts(@RequestParam(required = true, name = "productlibelle") String productlibelle ) {
+        log.info("Searching  {} ",productlibelle );
+        return productService.searchByLibelle(productlibelle)
+                // uses of doNext
+                .doOnNext(p -> log.info(p.getLibelle()+ " is found"));
+
+    }
+
+
+    @GetMapping
+    @RequestMapping(value = "/products/")
+    public Flux<Product> getProducts() {
+        log.info("All products searching");
+      return productService.getProducts()
+              // uses of map
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map( product-> product);
+    }
+    
+    
+    
+    
+    
+    
+    @Autowired
+    StockinitService stockinitService;
+
+    @ExceptionHandler(ValidationParameterException.class)
+    public Mono<ResponseEntity<String>> handlerValidationParameterException11(ValidationParameterException e) {
+        return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
+    }
+
+    @ExceptionHandler(InternalServerException.class)
+    public Mono<ResponseEntity<String>> handlerInternalServerException11() {
+        return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
+    }
+
+    @PostMapping(value = "/save" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stockinit is saved" )
+    public Mono<String> create(@RequestBody Stockinit stockinit) {
+
+        if( ObjectUtils.anyNotNull(stockinit)  && !ObjectUtils.allNotNull(stockinit.getId(),stockinit.getMagasin(), stockinit.getQuantite(), stockinit.isActive(),stockinit.getIdproduct(), stockinit.getDate() )){
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error" ));
+        }
+        return Mono.just(stockinit)
+                .map(data->
+                {
+                     return stockinitService.save( data).subscribe().toString();
+                });
+    }
+
+
+    @GetMapping
+    @RequestMapping(value = "/stockinits{productlibelle}")
+    public Flux<Stockinit> getStockinits(@RequestParam(required = true, name = "stockinitmagasin") String stockinitmagasin ) {
+        log.info("Searching  {} ",stockinitmagasin );
+        return stockinitService.searchByMagasin(stockinitmagasin)
+                // uses of doNext
+                .doOnNext(p -> log.info(p.getMagasin()+ " is found"));
+
+    }
+
+
+    @GetMapping
+    @RequestMapping(value = "/stockinits/")
+    public Flux<Stockinit> getStockinits() {
+        log.info("All stockinits searching");
+      return stockinitService.getStockinit()
+              // uses of map
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map( stockinit-> stockinit);
+    }
 }
+
 

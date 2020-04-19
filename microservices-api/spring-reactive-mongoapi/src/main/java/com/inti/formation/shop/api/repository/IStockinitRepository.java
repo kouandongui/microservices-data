@@ -25,7 +25,7 @@ public interface IStockinitRepository extends ReactiveMongoRepository<Stockinit,
 
    /**
     *
-    * @param 
+    * @param magasin, idproduct
     * @return
     */
    @Query(value="{"+ "'magasin': {$elemMatch: {'idproduct': ?0}} ")
