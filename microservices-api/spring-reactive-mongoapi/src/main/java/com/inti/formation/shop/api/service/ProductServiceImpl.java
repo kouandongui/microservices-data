@@ -14,23 +14,29 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	@Override
-	public Flux<Product> findByLibelle() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Flux<Product> findByFrance() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Mono<Product> create(Product product) {
 		// TODO Auto-generated method stub
 		return productRepository.save(product);
+	}
+
+	@Override
+	public Mono<Product> update(Product p) {
+		// TODO Auto-generated method stub
+		return productRepository.save(p);
+	}
+
+	@Override
+	public Flux<Product> getProducts() {
+		// TODO Auto-generated method stub
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Flux<Product> searchLibelle(String libelle) {
+		// TODO Auto-generated method stub
+		return productRepository.findByLibelle(libelle);
 	}
 
 }

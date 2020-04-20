@@ -12,9 +12,14 @@ import reactor.core.publisher.Flux;
 
 @Repository
 public interface ProductRepository extends ReactiveMongoRepository<Product, String> {
-//	
-//	Flux<Product> findByLibelle(String libelle);
-//	
+	
+	/**
+	 * 
+	 * @param libelle
+	 * @return Product with parameter libelle
+	 */
+	Flux<Product> findByLibelle(String libelle);
+	
 //	@Query(value="{'origine':'France'}")
 //	Flux<Product> findByFrance(String magasin);
 //	

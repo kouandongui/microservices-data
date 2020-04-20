@@ -11,11 +11,13 @@ import reactor.core.publisher.Mono;
  *
  */
 public interface ProductService {
- 
-	Flux<Product> findByLibelle();
-	
-	Flux<Product> findByFrance();
 
-	Mono<Product> create(Product data);
 	
+	Mono<Product> create(Product product);
+	
+	public Mono<Product> update(Product p);
+	
+	public Flux<Product> getProducts();
+	
+	public Flux<Product> searchLibelle(String libelle);
 }

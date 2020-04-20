@@ -7,6 +7,7 @@ import com.inti.formation.shop.api.repository.StockinitRepository;
 import com.inti.formation.shop.api.repository.model.Stockinit;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
 public class StockinitServiceImpl implements StockinitService {
@@ -14,16 +15,25 @@ public class StockinitServiceImpl implements StockinitService {
 	@Autowired
 	private StockinitRepository stockinitRepository;
 	
+
 	@Override
-	public Flux<Stockinit> findByMagasin() {
+	public Mono<Stockinit> createStock(Stockinit stockinit) {
 		// TODO Auto-generated method stub
-		return null;
+		return stockinitRepository.save(stockinit);
 	}
 
 	@Override
-	public Flux<Stockinit> findByIdProduct() {
+	public Flux<Stockinit> getStockinits() {
 		// TODO Auto-generated method stub
-		return null;
+		return stockinitRepository.findAll();
 	}
+
+	@Override
+	public Mono<Stockinit> updateStock(Stockinit s) {
+		// TODO Auto-generated method stub
+		return stockinitRepository.save(s);
+	}
+
+
 
 }
