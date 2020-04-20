@@ -21,6 +21,8 @@ import lombok.Data;
 //    // unique = false acceptation des doublons true non
 //    // unique = true rejet  des doublons
 //})
+
+
 @Data
 @Document(collection="product")
 public class Product implements Serializable {
