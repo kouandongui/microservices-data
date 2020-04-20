@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class Customer implements Serializable {
     /**
-     * customer identifer
+     * customer identifier
      */
     @Id
     private String email;

@@ -29,7 +29,7 @@ public class ProductServiceImpl implements IProductService{
 
 	public Flux<Product> searchlibelle(final String libelle) {
 		// TODO Auto-generated method stub
-		return productRepository.findByLibelle(libelle);
+		return null;
 	}
 
 	@Override

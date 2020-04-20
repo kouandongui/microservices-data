@@ -13,13 +13,13 @@ import reactor.core.publisher.Flux;
 public interface IProductRepository extends ReactiveMongoRepository<Product, Long>  {
 
 	
-	 Flux<Product> findByLibelle(String libelle);
+//	 Flux<Product> findByLibelle(String libelle);
 	 
-	 
-	 // @param origin
-	 // return origine française
-	 
-	 @Query(value="{'origine': {$eq: 'France'}}")
-	    Flux<Product> findByOrigineFrance(final String origine);
+//	 
+//	 // @param origin
+//	 // return origine française
+//	 
+//	 @Query(value="{'origine': {$eq: 'France'}}")
+//	    Flux<Product> findByOrigineFrance(final String origine);
 	
 }

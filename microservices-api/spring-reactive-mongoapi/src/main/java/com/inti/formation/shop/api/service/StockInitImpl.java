@@ -26,7 +26,7 @@ public class StockInitImpl implements IStockService {
 	@Override
 	public Flux<StockInit> searchIdproduct(long idproduct) {
 		// TODO Auto-generated method stub
-		return stockinitRepository.findByIdProduct(idproduct);
+		return null;
 	}
 
 	@Override
