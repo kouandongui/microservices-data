@@ -13,28 +13,29 @@ import java.util.Date;
 
 
 /**
- * @author Sylvanius Kouandongui
+ * @author Alexandre Bucamp
  */
 
 @Data
 @Document(collection = "produit")
 @CompoundIndexes({
-        @CompoundIndex(name = "produit", def = "{ libelle: 1, origine: 1 }", unique = false)
+        @CompoundIndex(name = "produit", def = "{ libelle: 1, origine: 1 }")
         // unique = false acceptation des doublons true non
         // unique = true rejet  des doublons
 })
 
 public class Produit implements Serializable {
+
     /**
-     * stockinit identifier
+     * produit identifier
      */
     @Id
     private int id;
-    @Indexed(unique = false)
+    @Indexed
     private String libelle;
-    @Indexed(unique = false)
+    @Indexed
     private String origine;
     private String description;
-    @Indexed(unique = false)
+    @Indexed
     private String[] couleur;
 }

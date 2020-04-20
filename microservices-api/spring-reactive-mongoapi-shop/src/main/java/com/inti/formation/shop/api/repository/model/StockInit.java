@@ -16,13 +16,13 @@ import java.util.Date;
 
 
 /**
- * @author Sylvanius Kouandongui
+ * @author Alexandre Bucamp
  */
 
 @Data
 @Document(collection = "stockinit")
 @CompoundIndexes({
-        @CompoundIndex(name = "stockinit", def = "{ idproduct: 1, magasin: 1 }", unique = false)
+        @CompoundIndex(name = "stockinit", def = "{ idproduct: 1, magasin: 1 }")
         // unique = false acceptation des doublons true non
         // unique = true rejet  des doublons
 })
@@ -33,12 +33,12 @@ public class StockInit implements Serializable {
      */
     @Id
     private int id;
-    @Indexed(unique = false)
+    @Indexed
     private int quantite;
-    @Indexed(unique = false)
+    @Indexed
     private String magasin;
     private String active;
-    @Indexed(unique = false)
+    @Indexed
     private int idproduct;
     private Date date;
 }

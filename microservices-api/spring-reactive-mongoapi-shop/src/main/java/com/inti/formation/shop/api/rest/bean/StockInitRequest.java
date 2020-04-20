@@ -4,7 +4,7 @@ import com.inti.formation.shop.api.repository.model.StockInit;
 import lombok.Data;
 
 /**
- * @author Sylvanius Kouandongui
+ * @author Alexandre Bucamp
  */
 
 @Data
