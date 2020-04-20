@@ -32,8 +32,11 @@ public class Customer implements Serializable {
     private String email;
     @Indexed(unique = false)
     private String name;
+    @Indexed(unique = false)
     private String firstname;
+    @Indexed(unique = false)
     private String adresse;
+    @Indexed(unique = false)
     private Date dateNaissance;
     @Transient
     private int age;

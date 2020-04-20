@@ -21,7 +21,7 @@ import lombok.Data;
 
 
 @Data
-@Document(collection = "customer")
+@Document(collection = "stockinit")
 //@CompoundIndexes({
 //        @CompoundIndex(name = "customer", def = "{ name: 1, dateNaissance: 1 }", unique = false)
 //        // unique = false acceptation des doublons true non
@@ -38,9 +38,13 @@ public class StockInit implements Serializable{
 	private Long id;
 	@Indexed(unique = false)
 	private String magasin;
+	@Indexed(unique = false)
 	private Integer quantite;
+	@Indexed(unique = false)
 	private boolean active;
+	@Indexed(unique = false)
 	private Long idproduct;
+	@Indexed(unique = false)
 	private Date date;
 	
 	

@@ -38,8 +38,11 @@ public class Product implements Serializable{
 	private Long id;
 	 @Indexed(unique = false) //permet de lier le libelle à l'index
 	private String libelle;
+	 @Indexed(unique = false)
 	private String description;
+	 @Indexed(unique = false)
 	private String origine;
+	 @Indexed(unique = false)
 	private List<String> couleur;
 	
 
