@@ -3,9 +3,12 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
+import com.inti.formation.shop.api.repository.model.Product;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
+import com.inti.formation.shop.api.service.ProductService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -31,7 +34,12 @@ import static org.springframework.http.ResponseEntity.status;
 public class Endpoint {
     @Autowired
     CustomerService customerService;
-
+    @Autowired
+    ProductService productService;
+    
+    // **************************
+    // **************  Customer : 
+    // **************************
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
         return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
@@ -78,5 +86,25 @@ public class Endpoint {
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
                 .map( customer-> customer);
     }
+    
+    // **************************
+    // **************   Product : 
+    // **************************
+    @PostMapping(value = "/product/add" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is created" )
+    public Mono<String> create(@RequestBody Product product) {
+
+        if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(),product.getOrigine() )) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error" ));
+        }
+        return Mono.just(product)
+                .map(data->
+                {
+                     return productService.create(data).subscribe().toString();
+                });
+    }
+    
+
 }
 

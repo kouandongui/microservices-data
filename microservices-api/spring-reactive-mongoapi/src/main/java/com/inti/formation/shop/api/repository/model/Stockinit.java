@@ -12,24 +12,34 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
-@Data
-@Document(collection = "stockinit")
+/**
+ * 
+ * @author lilas
+ *
+ */
+
+
 //@CompoundIndexes({
 //    @CompoundIndex(name = "stockinit", def = "{ magasin: 1}", unique = false)
 //    // unique = false acceptation des doublons true non
 //    // unique = true rejet  des doublons
 //})
-
+@Data
+@Document(collection = "stockinit")
 public class Stockinit implements Serializable {
 	
-    @Id
-    private long id;
-    @Indexed(unique = false)
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+    private Long id;
+    
     private String magasin;
     private long quantite;
     private long idproduct;
     private boolean active;
 
-    @Transient
+    //@Transient
     private Date date;
 }
