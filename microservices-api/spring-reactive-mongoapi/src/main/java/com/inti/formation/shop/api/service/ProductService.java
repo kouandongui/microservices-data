@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface ProductService {
 	
-	Mono<Product> category(Product product);
+	Mono<Product> category(final Product product);
 	
 	public Flux<Product> searchByLibelle(String libelle);
 	

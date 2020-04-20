@@ -15,20 +15,24 @@ import lombok.Data;
  * @author IN-LL-052
  */
 @Data
-@Document(collection = "stockinit")
-@CompoundIndexes({
-        @CompoundIndex(name = "stockinit", def = "{ magasin:1}", unique = false)
-        // unique = false acceptation des doublons true non
-        // unique = true rejet  des doublons
-})
+//@Document(collection = "stockinit")
+//@CompoundIndexes({
+//        @CompoundIndex(name = "stockinit", def = "{ magasin:1}", unique = false)
+//        // unique = false acceptation des doublons true non
+//        // unique = true rejet  des doublons
+//})
 
 public class Stockinit implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6642811989906142685L;
 	/**
 	 * product identifier
 	 */
 	@Id
 	private long id;
-	@Indexed(unique = false)
+//	@Indexed(unique = false)
 	private String magasin;
 	private long quantite;
 	private boolean active;

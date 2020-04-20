@@ -1,6 +1,7 @@
 package com.inti.formation.shop.api.repository.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
@@ -16,22 +17,27 @@ import lombok.Data;
  */
 @Data
 @Document(collection = "product")
-@CompoundIndexes({
-        @CompoundIndex(name = "product", def = "{libelle:1, origine:1}", unique = false)
-        // unique = false acceptation des doublons true non
-        // unique = true rejet  des doublons
-})
+//@CompoundIndexes({
+//        @CompoundIndex(name = "product", def = "{libelle:1, origine:1}", unique = false)
+//        // unique = false acceptation des doublons true non
+//        // unique = true rejet  des doublons
+//})
 
 public class Product implements Serializable{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7493903769895440778L;
+	/**
 	 * product identifier
 	 */
+	
 	@Id
-	private long id;
-	@Indexed(unique = false)
+	private Long id;
+//	@Indexed(unique = false)
 	private String libelle;
 	private String origine;
 	private String description;
-	private String[] couleur;
+	private List<String> couleur;
 
 }

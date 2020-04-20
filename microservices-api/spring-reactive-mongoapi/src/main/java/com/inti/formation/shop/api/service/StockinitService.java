@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 public interface StockinitService {
 	
-	Mono<Stockinit> save(Stockinit stockinit);
+	Mono<Stockinit> save(final Stockinit stockinit);
 	
 	public Flux<Stockinit> searchByMagasin(String magasin);
 	
