@@ -12,4 +12,6 @@ import lombok.EqualsAndHashCode;
 @Data
 public class CustomerRequest extends Customer {
 
+
+
 }

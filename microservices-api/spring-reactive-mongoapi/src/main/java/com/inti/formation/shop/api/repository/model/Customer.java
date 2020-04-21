@@ -16,6 +16,7 @@ import java.util.Date;
 /**
  * @author Sylvanius Kouandongui
  */
+
 @Data
 @Document(collection = "customer")
 @CompoundIndexes({

@@ -36,4 +36,8 @@ public class ApplicationShop {
         SpringApplication.run(ApplicationShop.class, args);
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 56bac3af2fc4c3ba3cec81785a0d2e824b56a41a

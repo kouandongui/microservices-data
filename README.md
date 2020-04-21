@@ -12,4 +12,11 @@ cd microservices-api/spring-reactive-mongoapi/
 Run ApplicationShop.java ( from com.inti.formation.shop.api )
 ```
 
-dsssdsd
+Creating image docker 
+* Image will be created from  Dockerfile
+```
+cd  spring-reactive-mongoapi
+mvn clean install
+docker build -t api:latest .
+```
+

@@ -51,7 +51,7 @@ public class Endpoint {
     public Mono<ResponseEntity<String>> handlerInternalServerException() {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
-
+    
     @PostMapping(value = "/register", headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "Customer is registered")
     public Mono<String> create(@RequestBody Customer customer) {
