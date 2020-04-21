@@ -84,7 +84,7 @@ public class Endpoint {
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is registered" ) // message pour l'utilisateur (ne change pas ce qui se passe ds base de donnée)
     public Mono<String> create(@RequestBody ProductRequest product) {
 
-<<<<<<< HEAD
+
         if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getId(),product.getLibelle() )){
             log.error("Validation error: one of parameter is not found");
             return Mono.error(new ValidationParameterException("Validation error" ));
@@ -111,8 +111,7 @@ public class Endpoint {
                 });
     }
     
-=======
->>>>>>> master
+
     @GetMapping
     @RequestMapping(value = "/customers{customername}")
 
@@ -121,13 +120,10 @@ public class Endpoint {
         return customerService.searchName(customername)
 
                 // uses of doNext
-<<<<<<< HEAD
-                .doOnNext(p -> log.info(p.getEmail()+ " is found"));
-=======
+
 
                 .doOnNext(customer -> log.info(customer.getEmail()+ " is found"));
 
->>>>>>> master
     }
 
 
