@@ -36,4 +36,6 @@ public class ApplicationShop {
         SpringApplication.run(ApplicationShop.class, args);
     }
 
+
 }
+
