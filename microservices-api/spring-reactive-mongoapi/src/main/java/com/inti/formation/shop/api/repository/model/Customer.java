@@ -23,9 +23,17 @@ import java.util.Date;
         // unique = false acceptation des doublons true non
         // unique = true rejet  des doublons
 })
-
+/**
+ * 
+ * @author aimi-
+ *
+ */
 public class Customer implements Serializable {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * customer identifer
      */
     @Id

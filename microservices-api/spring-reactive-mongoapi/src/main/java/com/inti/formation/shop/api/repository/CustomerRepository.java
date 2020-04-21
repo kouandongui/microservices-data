@@ -35,8 +35,7 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
      * @param name
      * @return
      */
-    @Query(value="{"
-            + "'articles': {$elemMatch: {'name': ?0}}, ")
+    @Query(value="{"+ "'articles': {$elemMatch: {'name': ?0}}, ")
     Flux<Customer> findByCustomerName(final String name);
 
 }
