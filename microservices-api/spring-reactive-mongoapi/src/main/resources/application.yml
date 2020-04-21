@@ -4,12 +4,12 @@ spring:
 
   data:
     mongodb:
-<<<<<<< HEAD
+
       uri: mongodb://192.168.99.100:27017,192.168.99.100:27017
       database: shop
-=======
-      uri: mongodb://localhost:27017,localhost:27017
-      database: bdtest
-server:
- port: 8080
->>>>>>> branch 'master' of https://github.com/kouandongui/microservices-data.git
+
+#      uri: mongodb://localhost:27017,localhost:27017
+#      database: bdtest
+#server:
+# port: 8080
+#>>>>>>> branch 'master' of https://github.com/kouandongui/microservices-data.git
