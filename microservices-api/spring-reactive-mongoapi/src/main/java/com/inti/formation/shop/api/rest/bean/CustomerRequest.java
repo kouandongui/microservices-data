@@ -10,4 +10,6 @@ import lombok.Data;
 @Data
 public class CustomerRequest extends Customer {
 
+
+
 }
