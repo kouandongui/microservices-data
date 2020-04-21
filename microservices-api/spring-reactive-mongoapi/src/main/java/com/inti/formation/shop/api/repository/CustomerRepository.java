@@ -1,18 +1,14 @@
 package com.inti.formation.shop.api.repository;
 
-import com.inti.formation.shop.api.repository.model.Customer;
-import org.springframework.beans.factory.annotation.Value;
-        import org.springframework.boot.context.properties.ConfigurationProperties;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.context.annotation.PropertySource;
+import java.util.Date;
+
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
-import reactor.core.publisher.Flux;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import com.inti.formation.shop.api.repository.model.Customer;
+
+import reactor.core.publisher.Flux;
 
 @Repository
 public interface CustomerRepository extends ReactiveMongoRepository<Customer, String> {
@@ -84,7 +80,6 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
 
 
     /**
-     * Utilisation de Between
      * @param date1
      * @param date2
      * @return
