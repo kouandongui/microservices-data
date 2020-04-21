@@ -18,5 +18,9 @@ Creating image docker
 cd  spring-reactive-mongoapi
 mvn clean install
 docker build -t api:latest .
+docker build -t nomimage:version repertoire
+
+Nous, on a marqué :
+docker build -t reactivemongoapi:latest . 
 ```
 
