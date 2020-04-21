@@ -26,11 +26,18 @@ import java.util.Date;
 
 public class Customer implements Serializable {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	/**
      * customer identifer
      */
     @Id
     private String email;
-    @Indexed(unique = false)
+    //@Indexed(unique = false)
     private String name;
     private String firstname;
     private String adresse;
