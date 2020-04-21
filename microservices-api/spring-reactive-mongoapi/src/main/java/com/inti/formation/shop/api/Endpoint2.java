@@ -49,7 +49,7 @@ public class Endpoint2 {
     }
 
     @PostMapping(value = "/product/register" , headers = "Accept=application/json; charset=utf-8")
-    @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is registered" )
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stockinit is registered" )
     public Mono<String> create(@RequestBody Product product) {
 
         if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getCouleur(),product.getDescription(), product.getLibelle() )){
@@ -65,9 +65,9 @@ public class Endpoint2 {
 
 
     @GetMapping
-    @RequestMapping(value = "/product/products/")
+    @RequestMapping(value = "/stockinit/stockinits/")
     public Flux<Product> getProducts() {
-        log.info("All customers searching");
+        log.info("All stockinits searching");
       return productService.getProducts()
               // uses of map
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
