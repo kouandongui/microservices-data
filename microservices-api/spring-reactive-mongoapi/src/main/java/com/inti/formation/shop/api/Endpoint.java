@@ -120,10 +120,7 @@ public class Endpoint {
         return customerService.searchName(customername)
 
                 // uses of doNext
-
-
                 .doOnNext(customer -> log.info(customer.getEmail()+ " is found"));
-
     }
 
 
