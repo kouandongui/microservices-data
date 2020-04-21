@@ -4,10 +4,12 @@ package com.inti.formation.shop.api;
 
 import com.inti.formation.shop.api.repository.model.Customer;
 import com.inti.formation.shop.api.repository.model.Product;
+import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
 import com.inti.formation.shop.api.service.ProductService;
+import com.inti.formation.shop.api.service.StockinitService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +38,10 @@ public class Endpoint {
     CustomerService customerService;
     @Autowired
     ProductService productService;
+    @Autowired
+    StockinitService stockinitService;
     
-    // **************************
-    // **************  Customer : 
-    // **************************
+
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
         return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
@@ -49,7 +51,11 @@ public class Endpoint {
     public Mono<ResponseEntity<String>> handlerInternalServerException() {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
-
+    
+    
+    // **************************
+    // **************  Customer : 
+    // **************************
     @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" )
     public Mono<String> create(@RequestBody Customer customer) {
@@ -90,11 +96,11 @@ public class Endpoint {
     // **************************
     // **************   Product : 
     // **************************
-    @PostMapping(value = "/product/add" , headers = "Accept=application/json; charset=utf-8")
+    @PostMapping(value = "/register_product" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is created" )
     public Mono<String> create(@RequestBody Product product) {
 
-        if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getCouleur(), product.getDescription(), product.getLibelle(),product.getOrigine() )) {
+        if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull( product.getLibelle(), product.getDescription(), product.getOrigine(), product.getCouleur() )) {
             log.error("Validation error: one of parameter is not found");
             return Mono.error(new ValidationParameterException("Validation error" ));
         }
@@ -103,6 +109,45 @@ public class Endpoint {
                 {
                      return productService.create(data).subscribe().toString();
                 });
+    }
+    
+    @GetMapping
+    @RequestMapping(value = "/products/")
+    public Flux<Product> getProducts() {
+        log.info("All products searching");
+      return productService.getProducts()
+              // uses of map
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map( product-> product);
+    }
+    
+    // **************************
+    // ************** Stockinit : 
+    // **************************
+    
+    @PostMapping(value = "/register_product" , headers = "Accept=application/json; charset=utf-8")
+    @ResponseStatus( value  = HttpStatus.CREATED, reason="Stock is created" )
+    public Mono<String> createStock(@RequestBody Stockinit stockinit) {
+
+        if( ObjectUtils.anyNotNull(stockinit)  && !ObjectUtils.allNotNull( stockinit.getDate(), stockinit.getMagasin(), stockinit.getQuantite())) {
+            log.error("Validation error: one of parameter is not found");
+            return Mono.error(new ValidationParameterException("Validation error" ));
+        }
+        return Mono.just(stockinit)
+                .map(data->
+                {
+                     return stockinitService.createStock(data).subscribe().toString();
+                });
+    }
+    
+    @GetMapping
+    @RequestMapping(value = "/stockinits/")
+    public Flux<Stockinit> getStockinits() {
+        log.info("All stockinits searching");
+      return stockinitService.getStockinits()
+              // uses of map
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map( stockinit-> stockinit);
     }
     
 
