@@ -8,14 +8,16 @@ import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.*;
+import com.inti.formation.shop.api.rest.bean.CustomerRequest;
+import com.inti.formation.shop.api.rest.exception.InternalServerException;
+import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
+import com.inti.formation.shop.api.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,12 +27,11 @@ import reactor.core.publisher.Mono;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.status;
 
-
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop")
 @Slf4j
+// Controller , Roote
 public class Endpoint {
     @Autowired
     CustomerService customerService;
@@ -64,24 +65,24 @@ public class Endpoint {
                 {
                     return customerService.saveCustomer(data).subscribe().toString();
                 });
-
     }
-
 
     @GetMapping
     @RequestMapping(value = "/customers{customername}")
-    public Flux<Customer> getCustomes(@RequestParam(required = true, name = "customername") String customername) {
-        log.info("Searching  {} ", customername);
+    public Flux<Customer> getCustomers(@RequestParam(required = true, name = "customername") String customername ) {
+        log.info("Searching  {} ",customername );
         return customerService.searchCustomerName(customername)
-                // uses of doNext
-                .doOnNext(p -> log.info(p.getEmail() + " is found"));
 
+                // uses of doNext
+
+                .doOnNext(customer -> log.info(customer.getEmail()+ " is found"));
     }
+
 
 
     @GetMapping
     @RequestMapping(value = "/customers/")
-    public Flux<Customer> getCustomes() {
+    public Flux<Customer> getCustomers() {
         log.info("All customers searching");
         return customerService.findAllCustomers()
                 // uses of map

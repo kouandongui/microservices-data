@@ -30,7 +30,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 // Par conséquent, l'annotation
 @EnableAutoConfiguration
 @ComponentScan // scan tout le package et récupère c'est composant service
-@EnableReactiveMongoRepositories // active permet d'activer le thrading rectif de MongoDb
+@EnableReactiveMongoRepositories // active permet d'activer le thrading rectif de MongoDb // activation de spring mongo reactive
 public class ApplicationShop {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationShop.class, args);
