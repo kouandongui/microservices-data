@@ -303,29 +303,29 @@ public class Endpoint {
     
     
     
-//    
-//    @GetMapping
-//    @RequestMapping(value = "/stockinits{idproduct}")
-//    public Flux<StockInit> getstock(@RequestParam(required = true, name = "idproduct") long idproduct ) {
-//        log.info("Searching  {} ",idproduct );
-//        return stockinitservice.searchIdproduct(idproduct)
-//                // uses of doNext
-//                .doOnNext(p -> log.info(p.getIdproduct()+ " is found"));
-//
-//    }
-//
-//
-//    @GetMapping
-//    @RequestMapping(value = "/stockinits/")
-//    public Flux<StockInit> getStockinit() {
-//        log.info("All stock searching");
-//      return stockinitservice.getstockinit()
-//              // uses of map
-//                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
-//                .map( stockinit-> stockinit);
-//    }
-//    
-//    
+    
+    @GetMapping
+    @RequestMapping(value = "/stockinits{idproduct}")
+    public Flux<StockInit> getstock(@RequestParam(required = true, name = "idproduct") long idproduct ) {
+        log.info("Searching  {} ",idproduct );
+        return stockinitservice.searchIdproduct(idproduct)
+                // uses of doNext
+                .doOnNext(p -> log.info(p.getIdproduct()+ " is found"));
+
+    }
+
+
+    @GetMapping
+    @RequestMapping(value = "/stockinits/")
+    public Flux<StockInit> getStockinit() {
+        log.info("All stock searching");
+      return stockinitservice.getstockinit()
+              // uses of map
+                .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
+                .map( stockinit-> stockinit);
+    }
+    
+    
     
     
     
