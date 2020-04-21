@@ -17,6 +17,10 @@ import lombok.Data;
 
 public class StockInit implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	private Integer id;
 	@Indexed(unique=false)
