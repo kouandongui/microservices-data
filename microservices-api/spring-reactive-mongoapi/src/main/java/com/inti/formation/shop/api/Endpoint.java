@@ -3,15 +3,13 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
-<<<<<<< HEAD
+
 import com.inti.formation.shop.api.repository.model.Product;
 import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.bean.CustomerRequest;
 import com.inti.formation.shop.api.rest.bean.ProductRequest;
 import com.inti.formation.shop.api.rest.bean.StockinitRequest;
-=======
-import com.inti.formation.shop.api.rest.bean.CustomerRequest;
->>>>>>> master
+
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
