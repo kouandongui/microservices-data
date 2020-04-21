@@ -3,11 +3,15 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
+<<<<<<< HEAD
 import com.inti.formation.shop.api.repository.model.Product;
 import com.inti.formation.shop.api.repository.model.Stockinit;
 import com.inti.formation.shop.api.rest.bean.CustomerRequest;
 import com.inti.formation.shop.api.rest.bean.ProductRequest;
 import com.inti.formation.shop.api.rest.bean.StockinitRequest;
+=======
+import com.inti.formation.shop.api.rest.bean.CustomerRequest;
+>>>>>>> master
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
@@ -36,8 +40,12 @@ import static org.springframework.http.ResponseEntity.status;
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop") //toutes mes api vont commencer par V1shop
 @Slf4j
+<<<<<<< HEAD
 
 //Controller, Root
+=======
+// Controller , Roote
+>>>>>>> master
 public class Endpoint {
     @Autowired
     CustomerService customerService;
@@ -49,7 +57,8 @@ public class Endpoint {
     //Exception par ex: champ oblgatoire
     @ExceptionHandler(ValidationParameterException.class)
     public Mono<ResponseEntity<String>> handlerValidationParameterException(ValidationParameterException e) {
-        return Mono.just(badRequest().body("Missing parameter: "+ e.getMessage()));
+     return Mono.just(
+                badRequest().body("Missing parameter: "+ e.getMessage()));
     }
 
     @ExceptionHandler(InternalServerException.class)
@@ -57,18 +66,22 @@ public class Endpoint {
         return Mono.just(status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error server has occurred "));
     }
 
+
     @PostMapping(value = "/register/customer" , headers = "Accept=application/json; charset=utf-8") /*headers = type de la réponse*/
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" ) // message pour l'utilisateur (ne change pas ce qui se passe ds base de donnée)
+
     public Mono<String> create(@RequestBody CustomerRequest customer) {
 
         if( ObjectUtils.anyNotNull(customer)  && !ObjectUtils.allNotNull(customer.getEmail(),customer.getName(), customer.getFirstname() )){
-            log.error("Validation error: one of parameter is not found");
-            return Mono.error(new ValidationParameterException("Validation error" ));
+            log.error("Validation error: one of attributes is not found");
+            return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));
         }
         return Mono.just(customer)
-                .map(data->
+        .map(data->
                 {
-                     return customerService.register( data).subscribe().toString();
+
+                    return customerService.register( data).subscribe().toString();
+
                 });
     }
     
@@ -76,6 +89,7 @@ public class Endpoint {
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Product is registered" ) // message pour l'utilisateur (ne change pas ce qui se passe ds base de donnée)
     public Mono<String> create(@RequestBody ProductRequest product) {
 
+<<<<<<< HEAD
         if( ObjectUtils.anyNotNull(product)  && !ObjectUtils.allNotNull(product.getId(),product.getLibelle() )){
             log.error("Validation error: one of parameter is not found");
             return Mono.error(new ValidationParameterException("Validation error" ));
@@ -102,24 +116,35 @@ public class Endpoint {
                 });
     }
     
+=======
+>>>>>>> master
     @GetMapping
     @RequestMapping(value = "/customers{customername}")
-    public Flux<Customer> getCustomes(@RequestParam(required = true, name = "customername") String customername ) {
+
+    public Flux<Customer> getCustomers(@RequestParam(required = true, name = "customername") String customername ) {
         log.info("Searching  {} ",customername );
         return customerService.searchName(customername)
+
                 // uses of doNext
+<<<<<<< HEAD
                 .doOnNext(p -> log.info(p.getEmail()+ " is found"));
+=======
+
+                .doOnNext(customer -> log.info(customer.getEmail()+ " is found"));
+
+>>>>>>> master
     }
+
 
 
     @GetMapping
     @RequestMapping(value = "/customers/")
-    public Flux<Customer> getCustomes() {
+    public Flux<Customer> getCustomers() {
         log.info("All customers searching");
       return customerService.getCustomers()
               // uses of map
                 .switchIfEmpty(Flux.error(new ResponseStatusException(HttpStatus.NOT_FOUND)))
-                .map( customer-> customer);
+                .map( data-> data);
     }
     
     @GetMapping

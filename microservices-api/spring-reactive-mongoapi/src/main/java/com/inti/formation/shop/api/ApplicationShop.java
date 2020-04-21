@@ -9,10 +9,11 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 @SpringBootConfiguration
 @EnableAutoConfiguration
 @ComponentScan
-@EnableReactiveMongoRepositories
+@EnableReactiveMongoRepositories // activation de spring mongo reactive
 public class ApplicationShop {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationShop.class, args);
     }
 
 }
+-A
