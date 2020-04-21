@@ -56,7 +56,7 @@ public class Endpoint {
     @PostMapping(value = "/register" , headers = "Accept=application/json; charset=utf-8")
     @ResponseStatus( value  = HttpStatus.CREATED, reason="Customer is registered" )
     public Mono<String> create(@RequestBody CustomerRequest customer) {
-
+        // Vérification des paramètres
         if( ObjectUtils.anyNotNull(customer)  && !ObjectUtils.allNotNull(customer.getEmail(),customer.getName(), customer.getFirstname() )){
             log.error("Validation error: one of attributes is not found");
             return Mono.error(new ValidationParameterException("(Validation error message): one of attributes is not found" ));

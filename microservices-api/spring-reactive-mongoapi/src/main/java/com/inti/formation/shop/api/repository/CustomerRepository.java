@@ -84,11 +84,19 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
 
 
     /**
+<<<<<<< HEAD
      * Utilisation de Between
      * @param date1 date2
+=======
+     *
+     * @param date1
+     * @param date2
+>>>>>>> branch 'master' of https://github.com/kouandongui/microservices-data.git
      * @return
      */
-    Flux<Customer> findByDateNaissanceBetween( final Date date1, final Date date2);
+
+    Flux<Customer> findByDateNaissanceBetween( final Date date1,  final Date date2);
+
 
 
 }
