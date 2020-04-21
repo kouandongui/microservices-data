@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Flux<Product> searchLibelle(String libelle) {
-		return productRepository.findByLibelle(libelle);
+		return null;
 	}
 	
 	@Override

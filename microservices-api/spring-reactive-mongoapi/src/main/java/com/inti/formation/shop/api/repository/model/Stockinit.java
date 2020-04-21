@@ -20,7 +20,11 @@ import lombok.Data;
 })
 public class Stockinit implements Serializable{
 
-	 @Id
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
 	    private long id;
 	    @Indexed(unique = false)
 	    private long quantite;

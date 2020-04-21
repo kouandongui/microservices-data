@@ -10,12 +10,12 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface IStockinitRepository extends ReactiveMongoRepository<Stockinit, Long> {
    
-    Flux<Stockinit> findByMagasin(String magasin);
-    
-    Flux<Stockinit> findByIdproduct(long idproduct);
-
-    @Query(value="{"
-            + "'magasin': {$elemMatch: {'idproduct': ?0}}, ")
-    Flux<Stockinit> findByMagasinAndIdproduct(final long idproduct);
+//    Flux<Stockinit> findByMagasin(String magasin);
+//    
+//    Flux<Stockinit> findByIdproduct(long idproduct);
+//
+//    @Query(value="{"
+//            + "'magasin': {$elemMatch: {'idproduct': ?0}}, ")
+//    Flux<Stockinit> findByMagasinAndIdproduct(final long idproduct);
 
 }

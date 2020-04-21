@@ -11,9 +11,9 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface IProductRepository extends ReactiveMongoRepository<Product, Long> {
    
-    Flux<Product> findByLibelle(String libelle);
-
-    @Query(value="{'origine': {$eq: 'France'}}")
-    Flux<Customer> findByCustomerAge(final int age);
+//	Flux<Product> findByLibelle(String libelle);
+//
+//	@Query(value = "{'origine': {$eq: 'France'}}")
+//	Flux<Customer> findByCustomerAge(final int age);
 
 }

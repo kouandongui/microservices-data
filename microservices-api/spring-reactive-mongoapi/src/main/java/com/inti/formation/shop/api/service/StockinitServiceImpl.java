@@ -30,11 +30,11 @@ public class StockinitServiceImpl implements StockinitService {
     }
     
 	public Flux<Stockinit> searchMagasin(String magasin) {
-		  return stockinitRepository.findByMagasin(magasin);
+		  return null;
 	}
 	
 	public Flux<Stockinit> searchIdproduct(long idproduct) {
-		return stockinitRepository.findByIdproduct(idproduct);
+		return null;
 	}
 	
 }
