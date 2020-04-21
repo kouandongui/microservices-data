@@ -3,12 +3,12 @@ package com.inti.formation.shop.api;
 
 
 import com.inti.formation.shop.api.repository.model.Customer;
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import com.inti.formation.shop.api.repository.model.Product;
 import com.inti.formation.shop.api.repository.model.Stockinit;
-=======
+//=======
 import com.inti.formation.shop.api.rest.bean.CustomerRequest;
->>>>>>> branch 'master' of https://github.com/kouandongui/microservices-data.git
+//>>>>>>> branch 'master' of https://github.com/kouandongui/microservices-data.git
 import com.inti.formation.shop.api.rest.exception.InternalServerException;
 import com.inti.formation.shop.api.rest.exception.ValidationParameterException;
 import com.inti.formation.shop.api.service.CustomerService;
