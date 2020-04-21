@@ -21,10 +21,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Mono<Customer>  register(final Customer customer) {
+
         return customerRepository.save(customer);
 
     }
     public Flux<Customer> searchName(final String name) {
+
         return customerRepository.findByName(name);
     }
 
