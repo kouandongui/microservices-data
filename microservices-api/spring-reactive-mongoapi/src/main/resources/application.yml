@@ -1,11 +1,12 @@
 spring:
-  port: 0
   application:
     name: spring-rective-mongoapi
 
   data:
     mongodb:
+
       uri: mongodb://192.168.99.100:27017,192.168.99.100:27017
       database: shop
      
+
 
