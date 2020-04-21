@@ -40,12 +40,9 @@ import static org.springframework.http.ResponseEntity.status;
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/shop") //toutes mes api vont commencer par V1shop
 @Slf4j
-<<<<<<< HEAD
 
 //Controller, Root
-=======
-// Controller , Roote
->>>>>>> master
+
 public class Endpoint {
     @Autowired
     CustomerService customerService;
