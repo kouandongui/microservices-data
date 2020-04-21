@@ -22,6 +22,10 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
      * @return Customer with parameter name
      */
     Flux<Customer> findByName(String name);
+    
+    
+    
+    
 
     /**
      * B = Query in annotation
@@ -30,7 +34,16 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
      */
     @Query("{ 'name' : ?0 }")
     Flux<Customer> searchName(String name);
-
+// ?0 = le premier paramètre 
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * C
@@ -42,6 +55,14 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
 
     Flux<Customer> findByNameOrFirstname(final String name, final String firstname );
 
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * Utilisation de or avec query annotation
      * D = C
@@ -85,10 +106,11 @@ public interface CustomerRepository extends ReactiveMongoRepository<Customer, St
 
     /**
      * Utilisation de Between
-     * @param date
+     * @param date1
+     * @param date2
      * @return
      */
-    Flux<Customer> findByDateNaissanceBetween( final Date date);
+    Flux<Customer> findByDateNaissanceBetween( final Date date1, final Date date2);
 
 
 }
