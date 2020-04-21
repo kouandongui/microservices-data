@@ -1,9 +1,15 @@
 spring:
-  port: 0
   application:
     name: spring-rective-mongoapi
 
   data:
     mongodb:
+<<<<<<< HEAD
       uri: mongodb://192.168.99.100:27017,192.168.99.100:27017
       database: shop
+=======
+      uri: mongodb://localhost:27017,localhost:27017
+      database: bdtest
+server:
+ port: 8080
+>>>>>>> ff76f72039757131d9a9822676f9364802246905
