@@ -45,7 +45,7 @@
         <os-maven.plugin.version>1.5.0.Final</os-maven.plugin.version>
         <spring-boot-admin.version>2.2.1</spring-boot-admin.version>
         <apache.commons.compress.version>1.19</apache.commons.compress.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
         <google.guava.version>28.0-jre</google.guava.version>
         <auchan.changelog.version>1.2.0</auchan.changelog.version>
         <javax.jms.version>2.0.1</javax.jms.version>
